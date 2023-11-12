@@ -1,4 +1,4 @@
-package br.com.mateusgarcia.vagasspring;
+package br.com.mateusgarcia.vagas_spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
