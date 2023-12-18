@@ -33,7 +33,6 @@ public class CompanyEntity {
     private String password;
 
     private String website;
-    private String cnpj;
     private String name;
     private String description;
 
