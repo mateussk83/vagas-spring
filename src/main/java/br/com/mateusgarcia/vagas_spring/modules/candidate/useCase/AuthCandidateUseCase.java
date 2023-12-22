@@ -43,7 +43,7 @@ public class AuthCandidateUseCase {
         }
 
         List<String> roles = new ArrayList<String>();
-        roles.add("candidate");
+        roles.add("CANDIDATE");
 
         var expiresIn = Instant.now().plus(Duration.ofMinutes(10));
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
