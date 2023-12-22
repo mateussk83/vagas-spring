@@ -1,11 +1,10 @@
 package br.com.mateusgarcia.vagas_spring.modules.candidate.controllers;
 
+import br.com.mateusgarcia.vagas_spring.modules.candidate.useCase.ProfileCandidateUseCase;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.mateusgarcia.vagas_spring.exceptions.UserFoundException;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.CandidateEntity;
@@ -13,12 +12,16 @@ import br.com.mateusgarcia.vagas_spring.modules.candidate.CandidateRepository;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.useCase.CreateCandidateUseCase;
 import jakarta.validation.Valid;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/candidate")
 public class CandidateController {
 
   @Autowired
   private CreateCandidateUseCase createCandidateUseCase;
+  @Autowired
+  private ProfileCandidateUseCase profileCandidateUseCase;
 
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
@@ -30,4 +33,16 @@ public class CandidateController {
     return ResponseEntity.badRequest().body(e.getMessage());
   }
 }
+
+  @GetMapping("/")
+  public ResponseEntity<Object> get(HttpServletRequest request) {
+    try {
+      var idCandidate = request.getAttribute("candidate_id");
+      var profile = this.profileCandidateUseCase.execute(UUID.fromString(idCandidate.toString()));
+      return ResponseEntity.ok().body(profile);
+    }
+    catch(Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
 };
