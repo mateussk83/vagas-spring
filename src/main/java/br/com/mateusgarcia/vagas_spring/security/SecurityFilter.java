@@ -25,6 +25,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(null);
         String header = request.getHeader("Authorization");
 
+        if(request.getRequestURI().startsWith("/company")) {
+
+
         if(header != null) {
             var subjectToken = this.jwtProvider.validateToken(header);
             if(subjectToken.isEmpty()) {
@@ -36,7 +39,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
-
+        }
         filterChain.doFilter(request, response);
     }
 }
