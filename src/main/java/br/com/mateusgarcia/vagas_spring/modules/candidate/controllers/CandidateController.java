@@ -9,8 +9,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -71,12 +72,13 @@ CandidateController {
   @ApiResponses({
           @ApiResponse(responseCode = "200", content = {
                   @Content(
-                          array = @ArraySchema(shema = @Schema(
+                          array = @ArraySchema(schema = @Schema(
                                   implementation = JobEntity.class
                           ))
                   )
           })
   })
+  @SecurityRequirement(name = "jwt_auth")
   public ResponseEntity<Object> findJobByFilter(@RequestParam String filter) {
     try {
     var list = findAllJobsByFilterUseCase.execute(filter);
