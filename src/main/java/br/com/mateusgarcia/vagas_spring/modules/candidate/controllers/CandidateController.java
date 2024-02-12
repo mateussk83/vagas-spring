@@ -1,5 +1,6 @@
 package br.com.mateusgarcia.vagas_spring.modules.candidate.controllers;
 
+import br.com.mateusgarcia.vagas_spring.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.useCase.FindAllJobsByFilterUseCase;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.useCase.ProfileCandidateUseCase;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.JobEntity;
@@ -49,6 +50,20 @@ CandidateController {
 
   @GetMapping("/")
   @PreAuthorize("hasRole('CANDIDATE')")
+  @Tag(name = "Candidato", description = "Informações do candidato")
+  @Operation(
+          summary = "Perfil do candidato",
+          description = "Essa função é responsavel por buscar as informações do perfil do candidato"
+  )
+  @ApiResponses({
+          @ApiResponse(responseCode = "200", content = {
+                  @Content(
+                          schema = @Schema(implementation = ProfileCandidateResponseDTO.class)
+                  )
+          }),
+          @ApiResponse(responseCode = "400", description = "User not found")
+  })
+  @SecurityRequirement(name = "jwt_auth")
   public ResponseEntity<Object> get(HttpServletRequest request) {
     try {
       var idCandidate = request.getAttribute("candidate_id");
