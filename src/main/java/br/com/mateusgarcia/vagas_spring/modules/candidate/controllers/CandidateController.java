@@ -17,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.mateusgarcia.vagas_spring.exceptions.UserFoundException;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.CandidateEntity;
-import br.com.mateusgarcia.vagas_spring.modules.candidate.CandidateRepository;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.useCase.CreateCandidateUseCase;
 import jakarta.validation.Valid;
 
@@ -79,13 +77,7 @@ CandidateController {
           })
   })
   @SecurityRequirement(name = "jwt_auth")
-  public ResponseEntity<Object> findJobByFilter(@RequestParam String filter) {
-    try {
-    var list = findAllJobsByFilterUseCase.execute(filter);
-    return ResponseEntity.ok().body(list);
-    }
-    catch(Exception e){
-      return ResponseEntity.badRequest().body(e.getMessage());
-    }
+  public List<JobEntity> findJobByFilter(@RequestParam String filter) {
+      return findAllJobsByFilterUseCase.execute(filter);
   }
 };
