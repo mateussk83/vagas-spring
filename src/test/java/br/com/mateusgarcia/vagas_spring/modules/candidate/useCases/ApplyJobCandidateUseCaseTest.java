@@ -1,4 +1,4 @@
-package br.com.mateusgarcia.vagasspring.modules.candidate.useCases;
+package br.com.mateusgarcia.vagas_spring.modules.candidate.useCases;
 
 import br.com.mateusgarcia.vagas_spring.exceptions.JobNotFoundException;
 import br.com.mateusgarcia.vagas_spring.exceptions.UserNotFoundException;
