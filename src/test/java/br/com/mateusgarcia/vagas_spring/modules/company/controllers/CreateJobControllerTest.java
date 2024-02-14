@@ -85,16 +85,13 @@ public class CreateJobControllerTest {
                 .level("LEVEL_TEST")
                 .build();
 
-        try {
         mvc.perform(MockMvcRequestBuilders.post("/company/job/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestUtils.objectToJson(createdJobDTO))
                         .header(
                                 "Authorization",
                                 TestUtils.generateToken(UUID.randomUUID(), "jAVAGAS_@123#"
-                                )));
-        } catch(Exception e) {
-            assertThat(e).isInstanceOf(CompanyNotFoundException.class);
-        }
+                                )))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 }
