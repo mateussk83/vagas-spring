@@ -5,6 +5,7 @@ package br.com.mateusgarcia.vagas_spring.modules.company.controllers;
 
 import java.util.UUID;
 
+import br.com.mateusgarcia.vagas_spring.exceptions.CompanyNotFoundException;
 import br.com.mateusgarcia.vagas_spring.modules.company.dto.CreateJobDTO;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.CompanyEntity;
 import br.com.mateusgarcia.vagas_spring.modules.company.repositories.CompanyRepository;
@@ -24,6 +25,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -71,5 +75,26 @@ public class CreateJobControllerTest {
                         .header("Authorization", TestUtils.generateToken(company.getId(), "jAVAGAS_@123#")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateANewJobIfCompanyNotFound() throws Exception{
+        var createdJobDTO = CreateJobDTO.builder()
+                .benefits("BENEFITS_TEST")
+                .description("DESCRIPTION_TEST")
+                .level("LEVEL_TEST")
+                .build();
+
+        try {
+        mvc.perform(MockMvcRequestBuilders.post("/company/job/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.objectToJson(createdJobDTO))
+                        .header(
+                                "Authorization",
+                                TestUtils.generateToken(UUID.randomUUID(), "jAVAGAS_@123#"
+                                )));
+        } catch(Exception e) {
+            assertThat(e).isInstanceOf(CompanyNotFoundException.class);
+        }
     }
 }

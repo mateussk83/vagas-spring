@@ -4,7 +4,6 @@ import br.com.mateusgarcia.vagas_spring.modules.company.dto.CreateJobDTO;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.JobEntity;
 import br.com.mateusgarcia.vagas_spring.modules.company.useCases.CreateJobUseCase;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,7 +44,7 @@ public class JobController {
             })
     })
     @SecurityRequirement(name = "jwt_auth")
-    public JobEntity create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
         var companyId = request.getAttribute("company_id");
 
         JobEntity jobEntity = JobEntity.builder()
