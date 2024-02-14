@@ -27,7 +27,7 @@ public class CreateJobUseCase {
             var result = this.jobRepository.save(jobEntity);
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
