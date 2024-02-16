@@ -5,7 +5,6 @@ package br.com.mateusgarcia.vagas_spring.modules.company.controllers;
 
 import java.util.UUID;
 
-import br.com.mateusgarcia.vagas_spring.exceptions.CompanyNotFoundException;
 import br.com.mateusgarcia.vagas_spring.modules.company.dto.CreateJobDTO;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.CompanyEntity;
 import br.com.mateusgarcia.vagas_spring.modules.company.repositories.CompanyRepository;

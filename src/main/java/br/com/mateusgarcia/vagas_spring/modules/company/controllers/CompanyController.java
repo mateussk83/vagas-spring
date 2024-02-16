@@ -1,6 +1,5 @@
 package br.com.mateusgarcia.vagas_spring.modules.company.controllers;
 
-import br.com.mateusgarcia.vagas_spring.exceptions.UserFoundException;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.CompanyEntity;
 import br.com.mateusgarcia.vagas_spring.modules.company.useCases.CreateCompanyUseCase;
 import jakarta.validation.Valid;

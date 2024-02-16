@@ -3,7 +3,6 @@ package br.com.mateusgarcia.vagas_spring.modules.candidate.entity;
 import br.com.mateusgarcia.vagas_spring.modules.candidate.CandidateEntity;
 import br.com.mateusgarcia.vagas_spring.modules.company.entities.JobEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
