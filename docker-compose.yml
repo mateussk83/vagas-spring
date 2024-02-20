@@ -16,7 +16,7 @@ services:
     environment: 
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=vagas_springs
+      - POSTGRES_DB=vagas_spring
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
