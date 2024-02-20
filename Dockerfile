@@ -7,7 +7,8 @@ COPY . .
 RUN apt-get install maven -y
 RUN mvn clean install
 
-ROM openjdk:17-jdk-slim / EXPOSED 8080
+FROM openjdk:17-jdk-slim
+EXPOSE 8080
 
 COPY --from=build /target/vagas-spring-0.0.1-SNAPSHOT.jar app.jar
 
